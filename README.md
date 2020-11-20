@@ -9,4 +9,5 @@ Engineering challenage to use .Net Core C# with NUnit to test the Google Maps We
 6. Verify destination field is "Dublin"
 ---
 **Use element locator methods as necessary**
+
 **Implement as many assertions as you deem applicable**
