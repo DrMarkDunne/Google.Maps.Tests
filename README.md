@@ -1,5 +1,4 @@
 ## [Google.Maps.Tests](https://www.google.com/maps)
----
 
 #### Tasks
 
@@ -36,6 +35,7 @@ dotnet test
 #### Power BI
 
 View live results on the [Power BI Report](https://app.powerbi.com/view?r=eyJrIjoiZjI5ZTkwZjQtMDIyNy00MTYwLTkzZTEtYzJjOWI5OWQxZjNkIiwidCI6Ijg2ZWI1Y2RjLTA1ZDUtNDk1Mi1iMzZkLWJjMTEwYWYxZTJlNSIsImMiOjh9)
+![GitHub Logo](/powerbi_report.png)
 
 ---
 
