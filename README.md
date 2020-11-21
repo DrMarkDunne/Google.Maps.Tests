@@ -1,4 +1,7 @@
-# [Google.Maps.Tests](https://www.google.com/maps)
+## [Google.Maps.Tests](https://www.google.com/maps)
+---
+
+#### Tasks
 
 Engineering challenage to use .Net Core C# with NUnit to test the Google Maps Web UI:
 1. Go to [Google Maps](https://www.google.com/maps)
@@ -10,19 +13,49 @@ Engineering challenage to use .Net Core C# with NUnit to test the Google Maps We
 
 ---
 
-**Use element locator methods as necessary**
+#### Notes
 
-**Implement as many assertions as you deem applicable**
-
----
-
-[Power BI Report](https://app.powerbi.com/view?r=eyJrIjoiZjI5ZTkwZjQtMDIyNy00MTYwLTkzZTEtYzJjOWI5OWQxZjNkIiwidCI6Ijg2ZWI1Y2RjLTA1ZDUtNDk1Mi1iMzZkLWJjMTEwYWYxZTJlNSIsImMiOjh9)
+1. Use element locator methods as necessary**
+2. Implement as many assertions as you deem applicable**
 
 ---
 
-[Download Allure](https://github.com/allure-framework/allure2)
+#### .Net Core 3.1
+
+[Download .Net Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+
+Run tests using commandline tools:
+```
+dotnet clean
+dotnet build
+dotnet test
+```
+
+---
+
+#### Power BI
+
+View live results on the [Power BI Report](https://app.powerbi.com/view?r=eyJrIjoiZjI5ZTkwZjQtMDIyNy00MTYwLTkzZTEtYzJjOWI5OWQxZjNkIiwidCI6Ijg2ZWI1Y2RjLTA1ZDUtNDk1Mi1iMzZkLWJjMTEwYWYxZTJlNSIsImMiOjh9)
+
+---
+
+#### Allure Reports
+
+[Download Commandline Allure](https://github.com/allure-framework/allure2)
 ![GitHub Logo](/allure_report.png)
-Generate Allure Report:
+
+Generate an Allure report using commandline tools:
 ```
 c:\allure-2.10.0\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests\bin\Debug\netcoreapp3.1\allure-results
 ```
+
+---
+
+#### Run It All Together
+
+PowerShell:
+```
+cd C:\git\Google.Maps.Tests\Google.Maps.Tests\ | dotnet clean | dotnet build --force --nologo | dotnet test --filter Category="CityTests" --nologo -- NUnit.DefaultTimeout=150000 | c:\allure-2.10.0\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests\bin\Debug\netcoreapp3.1\allure-results
+```
+
+---
