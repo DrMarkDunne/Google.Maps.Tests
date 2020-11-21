@@ -11,3 +11,13 @@ Engineering challenage to use .Net Core C# with NUnit to test the Google Maps We
 **Use element locator methods as necessary**
 
 **Implement as many assertions as you deem applicable**
+
+---
+Power BI Report: 
+<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZjI5ZTkwZjQtMDIyNy00MTYwLTkzZTEtYzJjOWI5OWQxZjNkIiwidCI6Ijg2ZWI1Y2RjLTA1ZDUtNDk1Mi1iMzZkLWJjMTEwYWYxZTJlNSIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+
+---
+Generate Allure Report:
+```
+c:\allure-2.10.0\bin\allure.bat serve c:\allure-2.10.0\bin\allure.bat serve allure-results\allure-results
+```
