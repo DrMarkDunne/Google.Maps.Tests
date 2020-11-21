@@ -21,7 +21,7 @@ Engineering challenage to use .Net Core C# with NUnit to test the Google Maps We
 ---
 
 [Download Allure](https://github.com/allure-framework/allure2)
-
+![GitHub Logo](/allure_report.png)
 Generate Allure Report:
 ```
 c:\allure-2.10.0\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests\bin\Debug\netcoreapp3.1\allure-results
