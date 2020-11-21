@@ -14,8 +14,8 @@ Engineering challenage to use .Net Core C# with NUnit to test the Google Maps We
 
 #### Notes
 
-1. Use element locator methods as necessary**
-2. Implement as many assertions as you deem applicable**
+1. Use element locator methods as necessary
+2. Implement as many assertions as you deem applicable
 
 ---
 
