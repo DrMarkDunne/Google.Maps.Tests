@@ -44,7 +44,7 @@ namespace Google.Maps.Tests
         {
             #region 1. Go to https://www.google.com/maps
             using ChromeDriver driver = new ChromeDriver();
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var id = Guid.NewGuid().ToString();
             var stepResult = new StepResult { name = $"1. Go to https://www.google.com/maps" };
             var status = Status.passed;
