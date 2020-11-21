@@ -46,7 +46,7 @@ View live results on the [Power BI Report](https://app.powerbi.com/view?r=eyJrIj
 
 Generate an Allure report using commandline tools:
 ```
-c:\allure-2.10.0\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests\bin\Debug\netcoreapp3.1\allure-results
+c:\allure-commandline-2.13.6\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests\bin\Debug\netcoreapp3.1\allure-results
 ```
 
 ---
@@ -55,7 +55,7 @@ c:\allure-2.10.0\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests
 
 PowerShell:
 ```
-cd C:\git\Google.Maps.Tests\Google.Maps.Tests\ | dotnet clean | dotnet build --force --nologo | dotnet test --filter Category="CityTests" --nologo -- NUnit.DefaultTimeout=150000 | c:\allure-2.10.0\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests\bin\Debug\netcoreapp3.1\allure-results
+cd C:\git\Google.Maps.Tests\Google.Maps.Tests\ | dotnet clean | dotnet build --force --nologo | dotnet test --filter Category="CityTests" --nologo -- NUnit.DefaultTimeout=150000 | c:\allure-commandline-2.13.6\bin\allure.bat serve C:\git\Google.Maps.Tests\Google.Maps.Tests\bin\Debug\netcoreapp3.1\allure-results
 ```
 
 ---
