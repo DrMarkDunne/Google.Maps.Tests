@@ -14,7 +14,7 @@ Engineering challenage to use .Net Core C# with NUnit to test the Google Maps We
 
 ---
 Power BI Report: 
-<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZjI5ZTkwZjQtMDIyNy00MTYwLTkzZTEtYzJjOWI5OWQxZjNkIiwidCI6Ijg2ZWI1Y2RjLTA1ZDUtNDk1Mi1iMzZkLWJjMTEwYWYxZTJlNSIsImMiOjh9" frameborder="0" allowFullScreen="true"></iframe>
+https://app.powerbi.com/view?r=eyJrIjoiZjI5ZTkwZjQtMDIyNy00MTYwLTkzZTEtYzJjOWI5OWQxZjNkIiwidCI6Ijg2ZWI1Y2RjLTA1ZDUtNDk1Mi1iMzZkLWJjMTEwYWYxZTJlNSIsImMiOjh9
 
 ---
 Generate Allure Report:
