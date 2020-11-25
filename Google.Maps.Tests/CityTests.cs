@@ -11,6 +11,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System;
+
 using Allure.Commons;
 
 using NUnit.Allure.Attributes;
@@ -21,8 +23,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
 using SeleniumExtras.WaitHelpers;
-
-using System;
 
 namespace Google.Maps.Tests
 {
@@ -40,13 +40,13 @@ namespace Google.Maps.Tests
         [TestCase("Tokyo", TestName = "5 - Google Maps - 'Tokyo' Test")]
         [TestCase("San Francisco", TestName = "6 - Google Maps - 'San Francisco' Test")]
         [TestCase("New York", TestName = "7 - Google Maps - 'New York' Test")]
-        public void GoogleMapsCityTest(string serchCityName = "Dublin")
+        public void GoogleMapsCityTest(string searchCityName = "Dublin")
         {
             #region 1. Go to https://www.google.com/maps
-            using ChromeDriver driver = new ChromeDriver();
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            using var driver = new ChromeDriver();
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             var id = Guid.NewGuid().ToString();
-            var stepResult = new StepResult { name = $"1. Go to https://www.google.com/maps" };
+            var stepResult = new StepResult { name = "1. Go to https://www.google.com/maps" };
             var status = Status.passed;
             AllureLifecycle.Instance.StartStep(id, stepResult);
             try
@@ -63,42 +63,42 @@ namespace Google.Maps.Tests
             }
             catch (AssertionException e)
             {
-                status = Helpers.ReportFailedStepWithScreenshot(driver, serchCityName, e);
+                status = Helpers.ReportFailedStepWithScreenshot(driver, searchCityName, e);
             }
             AllureLifecycle.Instance.StopStep(step => stepResult.status = status);
             #endregion
 
             #region 2. Enter Dublin in the search box
             id = Guid.NewGuid().ToString();
-            stepResult = new StepResult { name = $"2. Enter '{serchCityName}' in the search box" };
+            stepResult = new StepResult { name = $"2. Enter '{searchCityName}' in the search box" };
             status = Status.passed;
             AllureLifecycle.Instance.StartStep(id, stepResult);
             try
             {
-                var searchBoxInputId = "searchboxinput";
+                const string searchBoxInputId = "searchboxinput";
                 var searchBoxInputElement = driver.FindElementById(searchBoxInputId);
                 // Assert that the 'searchBoxInputElement' is not null
                 Assert.IsNotNull(searchBoxInputElement, $"'{driver.Title}' has no element with ID: {searchBoxInputId}");
-                searchBoxInputElement.SendKeys(serchCityName);
+                searchBoxInputElement.SendKeys(searchCityName);
                 var searchBoxInputElementCurrentValue = searchBoxInputElement.GetAttribute("value");
-                // Assert that the current value in the 'searchBoxInputElementCurrentValue' is set to 'serchCityName'
-                Assert.AreEqual(serchCityName, searchBoxInputElementCurrentValue);
+                // Assert that the current value in the 'searchBoxInputElementCurrentValue' is set to 'searchCityName'
+                Assert.AreEqual(searchCityName, searchBoxInputElementCurrentValue);
             }
             catch (AssertionException e)
             {
-                status = Helpers.ReportFailedStepWithScreenshot(driver, serchCityName, e);
+                status = Helpers.ReportFailedStepWithScreenshot(driver, searchCityName, e);
             }
             AllureLifecycle.Instance.StopStep(step => stepResult.status = status);
             #endregion
 
             #region 3. Search
             id = Guid.NewGuid().ToString();
-            stepResult = new StepResult { name = $"3. Search" };
+            stepResult = new StepResult { name = "3. Search" };
             status = Status.passed;
             AllureLifecycle.Instance.StartStep(id, stepResult);
             try
             {
-                var searchBoxSearchButtonId = "searchbox-searchbutton";
+                const string searchBoxSearchButtonId = "searchbox-searchbutton";
                 var searchBoxSearchButtonElement = driver.FindElementById(searchBoxSearchButtonId);
                 // Assert that the 'searchBoxSearchButtonElement' is not null
                 Assert.IsNotNull(searchBoxSearchButtonElement, $"'{driver.Title}' has no element with ID: {searchBoxSearchButtonId}");
@@ -106,69 +106,69 @@ namespace Google.Maps.Tests
             }
             catch (AssertionException e)
             {
-                status = Helpers.ReportFailedStepWithScreenshot(driver, serchCityName, e);
+                status = Helpers.ReportFailedStepWithScreenshot(driver, searchCityName, e);
             }
             AllureLifecycle.Instance.StopStep(step => stepResult.status = status);
             #endregion
 
             #region 4. Verify left panel has "Dublin" as a headline text
             id = Guid.NewGuid().ToString();
-            stepResult = new StepResult { name = $"4. Verify left panel has '{serchCityName}' as a headline text" };
+            stepResult = new StepResult { name = $"4. Verify left panel has '{searchCityName}' as a headline text" };
             status = Status.passed;
             AllureLifecycle.Instance.StartStep(id, stepResult);
             try
             {
                 // Wait until element appears
-                var headlineXpath = "//*[@id=\"pane\"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[1]/h1/span[1]";
+                const string headlineXpath = "//*[@id=\"pane\"]/div/div[1]/div/div/div[2]/div[1]/div[1]/div[1]/h1/span[1]";
                 var headlineElement = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(headlineXpath)));
                 Assert.IsNotNull(headlineElement, $"'{driver.Title}' has no element with ID: {headlineXpath}");
                 var headlineElementValue = Helpers.GetInnerHtml(headlineElement);
-                // Assert that the current value in the 'headlineElementValue' is set to 'serchCityName'
-                Assert.AreEqual(serchCityName, headlineElementValue);
+                // Assert that the current value in the 'headlineElementValue' is set to 'searchCityName'
+                Assert.AreEqual(searchCityName, headlineElementValue);
             }
             catch (AssertionException e)
             {
-                status = Helpers.ReportFailedStepWithScreenshot(driver, serchCityName, e);
+                status = Helpers.ReportFailedStepWithScreenshot(driver, searchCityName, e);
             }
             AllureLifecycle.Instance.StopStep(step => stepResult.status = status);
             #endregion
 
             #region 5. Click Directions icon
             id = Guid.NewGuid().ToString();
-            stepResult = new StepResult { name = $"5. Click Directions icon" };
+            stepResult = new StepResult { name = "5. Click Directions icon" };
             status = Status.passed;
             AllureLifecycle.Instance.StartStep(id, stepResult);
             try
             {
-                var directionsButtonXpath = "//button[@class ='iRxY3GoUYUY__button gm2-hairline-border section-action-chip-button']";
+                const string directionsButtonXpath = "//button[@class ='iRxY3GoUYUY__button gm2-hairline-border section-action-chip-button']";
                 var directionsButton = driver.FindElement(By.XPath(directionsButtonXpath));
                 Assert.IsNotNull(directionsButton, $"'{driver.Title}' has no element with ID: {directionsButtonXpath}");
                 directionsButton.Click();
             }
             catch (AssertionException e)
             {
-                status = Helpers.ReportFailedStepWithScreenshot(driver, serchCityName, e);
+                status = Helpers.ReportFailedStepWithScreenshot(driver, searchCityName, e);
             }
             AllureLifecycle.Instance.StopStep(step => stepResult.status = status);
             #endregion
 
             #region 6. Verify destination field is "Dublin"
             id = Guid.NewGuid().ToString();
-            stepResult = new StepResult { name = $"6. Verify destination field is '{serchCityName}'" };
+            stepResult = new StepResult { name = $"6. Verify destination field is '{searchCityName}'" };
             status = Status.passed;
             AllureLifecycle.Instance.StartStep(id, stepResult);
             try
             {
-                var destinationFieldXpath = "//div[@id=\"sb_ifc52\"]//input[@class=\"tactile-searchbox-input\"]";
+                const string destinationFieldXpath = "//div[@id=\"sb_ifc52\"]//input[@class=\"tactile-searchbox-input\"]";
                 var destinationFieldElement = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(destinationFieldXpath)));
                 var destinationFieldCurrentValue = destinationFieldElement.GetAttribute("aria-label");
                 Assert.IsNotNull(destinationFieldCurrentValue, $"'{driver.Title}' has no element with ID: {destinationFieldXpath}");
-                // Assert that the current value in the 'destinationFieldCurrentValue' contains 'serchCityName'
-                Assert.IsTrue(destinationFieldCurrentValue.Contains(serchCityName));
+                // Assert that the current value in the 'destinationFieldCurrentValue' contains 'searchCityName'
+                Assert.IsTrue(destinationFieldCurrentValue.Contains(searchCityName));
             }
             catch (AssertionException e)
             {
-                status = Helpers.ReportFailedStepWithScreenshot(driver, serchCityName, e);
+                status = Helpers.ReportFailedStepWithScreenshot(driver, searchCityName, e);
             }
             AllureLifecycle.Instance.StopStep(step => stepResult.status = status);
             #endregion
