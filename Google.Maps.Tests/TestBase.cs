@@ -11,17 +11,17 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Allure.Commons;
-
-using NUnit.Allure.Attributes;
-using NUnit.Allure.Core;
-using NUnit.Framework;
-
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+
+using Allure.Commons;
+
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
+using NUnit.Framework;
 
 namespace Google.Maps.Tests
 {
@@ -61,7 +61,7 @@ namespace Google.Maps.Tests
             catch (Exception e)
             {
                 Console.WriteLine($"\nThere was an exception: {e.Message}");
-                throw e;
+                throw;
             }
         }
 
@@ -75,7 +75,7 @@ namespace Google.Maps.Tests
                 {
                     TestCaseTimer.Stop();
                     var TestCaseTime = TestCaseTimer.Elapsed;
-                    DateTime TestCaseEndTime = TestCaseStartTime + TestCaseTime;
+                    var TestCaseEndTime = TestCaseStartTime + TestCaseTime;
 
                     var status = TestContext.CurrentContext.Result.Outcome.Status;
 
@@ -84,7 +84,7 @@ namespace Google.Maps.Tests
                         : $"<pre>{TestContext.CurrentContext.Result.StackTrace}</pre>";
 
                     TestContext.WriteLine(
-                        $"Test {TestContext.CurrentContext.Test.Name} finished execution in {TestCaseTime.TotalMinutes} minuntes at {TestCaseEndTime} with result:{status}.");
+                        $"Test {TestContext.CurrentContext.Test.Name} finished execution in {TestCaseTime.TotalMinutes} minutes at {TestCaseEndTime} with result:{status}.");
 
                     // sending telemetry to Power BI
                     Helpers.LogAutomationResult(testRunComplete: false, testContext: TestContext.CurrentContext, startDateTime: TestCaseStartTime.ToString("yyyy-MM-ddTHH:mm:ss.000Z"), endDateTime: TestCaseEndTime.ToString("yyyy-MM-ddTHH:mm:ss.000Z"), duration: TestCaseTime.TotalMinutes);
@@ -92,8 +92,8 @@ namespace Google.Maps.Tests
                 catch (Exception e)
                 {
                     endMessage = $"Exception caught during test clean up: {e.Message}";
-                    AllureExtensions.ReportIssueStep(AllureLifecycle.Instance, endMessage);
-                    throw e;
+                    AllureLifecycle.Instance.ReportIssueStep(endMessage);
+                    throw;
                 }
 
             }, endMessage);
@@ -107,7 +107,7 @@ namespace Google.Maps.Tests
         {
             TestRunTimer.Stop();
             var TestRunTime = TestCaseTimer.Elapsed;
-            DateTime TestRunEndTime = TestRunStartTime + TestRunTime;
+            var TestRunEndTime = TestRunStartTime + TestRunTime;
             // Store test run results
             Helpers.LogAutomationResult(testRunComplete: true, testContext: TestContext.CurrentContext, startDateTime: TestRunStartTime.ToString("yyyy-MM-ddTHH:mm:ss.000Z"), endDateTime: TestRunEndTime.ToString("yyyy-MM-ddTHH:mm:ss.000Z"), duration: TestRunTime.TotalMinutes, testRunCount: TestCaseCounted(TestCaseCount));
             // sending telemetry to Power BI
@@ -125,8 +125,9 @@ namespace Google.Maps.Tests
 
             Parallel.ForEach(testCaseCount, item =>
             {
-                result.TryRemove(item.Key, out var _);
-                result.TryAdd(item.Key, null);
+                var (key, _) = item;
+                result.TryRemove(key, out var _);
+                result.TryAdd(key, null);
             });
 
             return result.Count;

@@ -11,11 +11,11 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Allure.Commons;
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+
+using Allure.Commons;
 
 namespace Google.Maps.Tests
 {
