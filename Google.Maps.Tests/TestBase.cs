@@ -22,20 +22,26 @@ using Allure.Commons;
 using NUnit.Allure.Attributes;
 using NUnit.Allure.Core;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace Google.Maps.Tests
 {
     [TestFixture]
     [AllureNUnit]
     [AllureParentSuite("AllTests")]
+    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     public class TestBase
     {
         private static readonly Stopwatch TestRunTimer = new Stopwatch();
         public static readonly DateTime TestRunStartTime = DateTime.Now;
-        private static readonly Stopwatch TestCaseTimer = new Stopwatch();
-        private static DateTime TestCaseStartTime { get; set; }
+        private readonly Stopwatch TestCaseTimer = new Stopwatch();
+        private DateTime TestCaseStartTime { get; set; }
         private static readonly ConcurrentDictionary<string, object> TestCaseCount = new ConcurrentDictionary<string, object>();
         public static readonly string TestRunName = RandomString(10);
+
+        protected IWebDriver Driver { get; private set; }
 
         public TestBase()
         {
@@ -53,6 +59,7 @@ namespace Google.Maps.Tests
         {
             try
             {
+                Driver = new ChromeDriver();
                 TestCaseCount.TryAdd(TestContext.CurrentContext.Test.ID, null);
                 TestCaseTimer.Start();
                 TestCaseStartTime = DateTime.Now;
@@ -66,13 +73,22 @@ namespace Google.Maps.Tests
         }
 
         [TearDown]
-        public static void TestCleanUp()
+        public void TestCleanUp()
         {
             var endMessage = "Tear Down complete";
             NUnit.Allure.Core.AllureExtensions.WrapSetUpTearDownParams(() =>
             {
                 try
                 {
+                    if (TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed)
+                    {
+                        var screenshotDriver = Driver as ITakesScreenshot;
+                        var screenshot = screenshotDriver.GetScreenshot();
+                        var screenshotName = $"{TestContext.CurrentContext.Test.Name}-failed.png";
+                        screenshot.SaveAsFile(screenshotName);
+                        AllureLifecycle.Instance.AddAttachment(screenshotName);
+                    }
+
                     TestCaseTimer.Stop();
                     var TestCaseTime = TestCaseTimer.Elapsed;
                     var TestCaseEndTime = TestCaseStartTime + TestCaseTime;
@@ -94,6 +110,11 @@ namespace Google.Maps.Tests
                     endMessage = $"Exception caught during test clean up: {e.Message}";
                     AllureLifecycle.Instance.ReportIssueStep(endMessage);
                     throw;
+                }
+                finally
+                {
+                    Driver?.Quit();
+                    Driver?.Dispose();
                 }
 
             }, endMessage);

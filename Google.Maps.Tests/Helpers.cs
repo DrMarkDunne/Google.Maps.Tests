@@ -100,56 +100,5 @@ namespace Google.Maps.Tests
             return response;
         }
 
-        /// <summary>
-        /// Close iframe to progress tests
-        /// </summary>
-        /// <param name="driver"></param>
-        /// <param name="xpath"></param>
-        /// <param name="tagName"></param>
-        public static void CloseIframe(ChromeDriver driver, string xpath, string tagName = "iframe")
-        {
-            var iframeElements = driver.FindElements(By.TagName(tagName));
-            if (iframeElements.Count <= 0) return;
-            // Clear 1st pop-up form if it appears as it is required for cookies
-            driver.SwitchTo().Frame(0);
-            var formElementButton = driver.FindElement(By.XPath(xpath));
-            formElementButton?.Click();
-            driver.SwitchTo().DefaultContent();
-        }
-
-        /// <summary>
-        /// Takes the IWebElement and execute JS to return text from inner HTML
-        /// </summary>
-        /// <param name="element"></param>
-        /// <returns>string</returns>
-        public static string GetInnerHtml(IWebElement element)
-        {
-            var remoteWebDriver = (RemoteWebElement)element;
-            var javaScriptExecutor = (IJavaScriptExecutor)remoteWebDriver.WrappedDriver;
-            var innerHtml = javaScriptExecutor.ExecuteScript("return arguments[0].innerHTML;", element).ToString();
-
-            return innerHtml;
-        }
-
-        /// <summary>
-        /// Report a failed test case and attached screenshot
-        /// </summary>
-        /// <param name="driver"></param>
-        /// <param name="searchCityName"></param>
-        /// <param name="e"></param>
-        /// <returns>test status</returns>
-        public static Status ReportFailedStepWithScreenshot(IWebDriver driver, string searchCityName, Exception e)
-        {
-            var screenshotDriver = driver as ITakesScreenshot;
-            var screenshot = screenshotDriver.GetScreenshot();
-            screenshot.SaveAsFile(@$"{searchCityName}-failed.png");
-            AllureLifecycle.Instance.AddAttachment
-            (
-                @$"{searchCityName}-failed.png"
-            );
-            AllureLifecycle.Instance.ReportIssueStep(e.Message, status: Status.failed);
-
-            return Status.failed;
-        }
     }
 }
